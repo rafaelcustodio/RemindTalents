@@ -11,7 +11,7 @@
 # Apos criar os projetos no CurseForge/Wago, descomente e preencha as duas linhas
 # abaixo (o packager usa elas para publicar automaticamente):
 # ## X-Curse-Project-ID: 000000
-# ## X-Wago-ID: xxxxxxxx
+X-Wago-ID: bGoyr860
 
 Locale.lua
 Locales\ptBR.lua
