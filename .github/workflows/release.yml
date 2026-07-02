@@ -10,6 +10,8 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write        # necessario p/ o packager criar o GitHub Release
     steps:
       - name: Checkout
         uses: actions/checkout@v4
