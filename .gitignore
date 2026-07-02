@@ -1,0 +1,7 @@
+# Dev / ferramentas
+.claude/
+.vscode/
+*.log
+
+# Artefatos de build do packager
+.release/

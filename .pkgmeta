@@ -1,0 +1,14 @@
+package-as: RemindTalents
+
+enable-nolib-creation: no
+
+ignore:
+  - .github
+  - .vscode
+  - .claude
+  - assets
+  - copy-to-wow.ps1
+  - README.md
+  - CHANGELOG.md
+  - .gitignore
+  - .pkgmeta
