@@ -8,9 +8,7 @@
 ## IconTexture: Interface\ICONS\INV_Inscription_TalentTome01
 ## X-Website: https://github.com/rafaelcustodio/RemindTalents
 ## X-License: MIT
-# CurseForge: apos criar o projeto, descomente e preencha a linha abaixo
-# (o packager usa ela para publicar automaticamente):
-# ## X-Curse-Project-ID: 000000
+## X-Curse-Project-ID: 1596005
 ## X-Wago-ID: bGoyr860
 
 Locale.lua
