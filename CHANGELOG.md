@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.0.1
+- Publishing to CurseForge enabled (no functional changes).
+
 ## 1.0.0
 - First public release.
 - Per dungeon/boss talent loadouts with on-screen reminder and one-click apply.

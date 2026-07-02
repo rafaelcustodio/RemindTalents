@@ -3,7 +3,7 @@
 ## Notes: Store talent loadouts per dungeon/boss and get reminded (and one-click swap) when your build is wrong.
 ## Notes-ptBR: Guarda loadouts de talentos por masmorra/boss e lembra (com troca em 1 clique) quando o build esta errado.
 ## Author: vhagar
-## Version: 1.0.0
+## Version: 1.0.1
 ## SavedVariables: RemindTalentsDB
 ## IconTexture: Interface\ICONS\INV_Inscription_TalentTome01
 ## X-Website: https://github.com/rafaelcustodio/RemindTalents
