@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.1.0
+- On-screen reminder icons now glow (pulsing proc-style highlight) when they appear, making the "wrong build" alert easier to notice.
+
 ## 1.0.1
 - Publishing to CurseForge enabled (no functional changes).
 

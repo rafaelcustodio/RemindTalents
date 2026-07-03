@@ -55,6 +55,56 @@ local function StyleIcon(btn)
     end
 end
 
+-------------------------------------------------------------------------------
+--  Glow (brilho ao aparecer o botão)
+-------------------------------------------------------------------------------
+-- Fallback próprio: textura de "proc alert" pulsando em alpha. Usado quando o
+-- glow nativo (ActionButton_ShowOverlayGlow) não está disponível.
+local function EnsureGlow(btn)
+    if btn._glow then return btn._glow end
+    local glow = btn:CreateTexture(nil, "OVERLAY", nil, 7)
+    glow:SetTexture("Interface\\SpellActivationOverlay\\IconAlert")
+    glow:SetTexCoord(0.00781250, 0.50781250, 0.27734375, 0.52734375)
+    glow:SetBlendMode("ADD")
+    local pad = ICON_SIZE * 0.4
+    glow:SetPoint("TOPLEFT", btn, "TOPLEFT", -pad, pad)
+    glow:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", pad, -pad)
+    glow:Hide()
+
+    local ag = glow:CreateAnimationGroup()
+    ag:SetLooping("REPEAT")
+    local fade = ag:CreateAnimation("Alpha")
+    fade:SetFromAlpha(1); fade:SetToAlpha(0.35); fade:SetDuration(0.6); fade:SetOrder(1)
+    local rise = ag:CreateAnimation("Alpha")
+    rise:SetFromAlpha(0.35); rise:SetToAlpha(1); rise:SetDuration(0.6); rise:SetOrder(2)
+
+    btn._glow = glow
+    btn._glowAnim = ag
+    return glow
+end
+
+local function StartGlow(btn)
+    if btn._glowOn then return end
+    btn._glowOn = true
+    if ActionButton_ShowOverlayGlow then
+        ActionButton_ShowOverlayGlow(btn)
+    else
+        EnsureGlow(btn)
+        btn._glow:Show()
+        btn._glowAnim:Play()
+    end
+end
+
+local function StopGlow(btn)
+    if not btn._glowOn then return end
+    btn._glowOn = false
+    if ActionButton_HideOverlayGlow then
+        ActionButton_HideOverlayGlow(btn)
+    end
+    if btn._glowAnim then btn._glowAnim:Stop() end
+    if btn._glow then btn._glow:Hide() end
+end
+
 local function ApplyEntry(btn)
     local e = btn._entry
     if not e or not e.text then return end
@@ -116,6 +166,7 @@ local function ShowIcon(index, entry)
     SetIconTexture(btn, entry.icon)
     btn._label:SetText(entry.name or "")
     btn:Show()
+    StartGlow(btn)
     active[#active + 1] = btn
 end
 
@@ -133,6 +184,7 @@ end
 local function HideIcons()
     if InCombat() then return end
     for _, btn in ipairs(active) do
+        StopGlow(btn)
         btn._label:SetText("")
         btn:Hide()
     end
