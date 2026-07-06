@@ -28,6 +28,9 @@ local function SlotKey(slot)
         return "b:" .. tostring(slot.encounterID or slot.name or "?")
     elseif slot.kind == "dungeon" then
         return "d:" .. tostring(slot.challengeMapID or slot.name or "?")
+    elseif slot.kind == "other" then
+        -- Bucket único "Others": chave fixa (independe de nome/idioma).
+        return "o:others"
     end
     return "x:" .. tostring(slot.name or slot.mapID or "?")
 end
@@ -147,6 +150,10 @@ end
 function Storage.FindForBoss(bossName)
     local t = GetSpecTable(false)
     if not (t and bossName) then return nil end
+    -- UnitName() de uma unidade não-jogador pode retornar um "secret value"
+    -- (WoW 12.0+): comparar com == gera erro de taint. Sem o nome, não há
+    -- como casar por nome — apenas ignora o lembrete de boss neste caso.
+    if issecretvalue and issecretvalue(bossName) then return nil end
     for _, e in pairs(t) do
         local s = e.slot
         if s and s.kind == "boss" and s.name == bossName then return e end

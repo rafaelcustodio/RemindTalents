@@ -18,13 +18,13 @@ L["Imported %d loadout(s) from TalentLoadoutsEx. Now disable it and use /reload.
 L["No TalentLoadoutsEx loadouts found for your class (is it enabled?)."] =
     "Nenhum loadout do TalentLoadoutsEx encontrado para sua classe (ele está ativo?)."
 L["Imported (TalentLoadoutsEx)"] = "Importados (TalentLoadoutsEx)"
-L["loaded. Open the talent tree to manage loadouts. /rt for help."] =
-    "carregado. Abra a árvore de talentos para gerenciar loadouts. /rt para ajuda."
+L["loaded. Open the talent tree to manage loadouts. /rtl for help."] =
+    "carregado. Abra a árvore de talentos para gerenciar loadouts. /rtl para ajuda."
 L["inactive: disable TalentLoadoutsEx and use /reload."] =
     "inativo: desative o TalentLoadoutsEx e use /reload."
 L["export module unavailable."] = "módulo de exportação indisponível."
-L["commands: /rt (talents), /rt save (save current), /rt migrate (import from TalentLoadoutsEx)."] =
-    "comandos: |cffffd200/rt|r (talentos), |cffffd200/rt save|r (salvar atual), |cffffd200/rt migrate|r (importar do TalentLoadoutsEx)."
+L["commands: /rtl (talents), /rtl save (save current), /rtl migrate (import from TalentLoadoutsEx)."] =
+    "comandos: |cffffd200/rtl|r (talentos), |cffffd200/rtl save|r (salvar atual), |cffffd200/rtl migrate|r (importar do TalentLoadoutsEx)."
 
 -- Storage
 L["could not save (class/spec unavailable)."] = "não foi possível salvar (classe/spec indisponíveis)."
@@ -97,6 +97,8 @@ L["Dungeons"] = "Masmorras"
 L["Raid: %s"] = "Raid: %s"
 L["Old"] = "Antigos"
 L[" (old)"] = " (antigo)"
+L["Others"] = "Outros"
+L["My loadouts"] = "Meus loadouts"
 L["No season data yet. Open the Adventure Guide once, then /reload."] =
     "Dados da season indisponíveis. Abra o Guia de Aventuras uma vez e use /reload."
 L["Select a dungeon or boss"] = "Selecione uma masmorra ou boss"

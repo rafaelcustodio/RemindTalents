@@ -282,7 +282,8 @@ local function BuildCatalog()
     local olds = {}
     for _, e in pairs(ns.Storage.GetAllEntries()) do
         local s = e.slot
-        if s and not ns.Zones.IsSlotCurrent(s) then
+        -- "other" tem sua própria seção "Others"; não cai em "Antigos".
+        if s and s.kind ~= "other" and not ns.Zones.IsSlotCurrent(s) then
             olds[#olds + 1] = {
                 kind = s.kind or "old", name = s.name or "?", encounterID = s.encounterID,
                 challengeMapID = s.challengeMapID, mapID = s.mapID, _old = true,
@@ -293,6 +294,13 @@ local function BuildCatalog()
         header(L["Old"])
         for _, o in ipairs(olds) do items[#items + 1] = o end
     end
+
+    -- Seção fixa "Others": bucket livre onde o usuário guarda loadouts avulsos.
+    header(L["Others"])
+    items[#items + 1] = {
+        kind = "other", name = L["My loadouts"],
+        icon = "Interface\\ICONS\\INV_Misc_Note_01",
+    }
 
     if #items == 0 then
         header(L["No season data yet. Open the Adventure Guide once, then /reload."])
@@ -449,6 +457,8 @@ local function FillLoadoutRow(row, lo)
 
     row.apply:SetScript("OnClick", function() ns.Apply.ApplyLoadout(lo.text, UI.RefreshList) end)
     row.more:SetScript("OnClick", function(self) OpenLoadoutMenu(self, lo) end)
+    -- Duplo-clique na linha aplica este loadout.
+    row:SetScript("OnDoubleClick", function() ns.Apply.ApplyLoadout(lo.text, UI.RefreshList) end)
 end
 
 -------------------------------------------------------------------------------
@@ -507,6 +517,21 @@ local function BuildRow(row)
         if self.entry and self.entry.kind ~= "header" then
             selectedSlot = self.entry
             selectedKey = ns.Storage.SlotKey(self.entry)
+            UI.RefreshList()
+        end
+    end)
+
+    -- Duplo-clique num grupo: seleciona e aplica o PRIMEIRO loadout da lista.
+    row:SetScript("OnDoubleClick", function(self)
+        local entry = self.entry
+        if not entry or entry.kind == "header" then return end
+        selectedSlot = entry
+        selectedKey = ns.Storage.SlotKey(entry)
+        local e = ns.Storage.GetSlotEntry(selectedKey)
+        local lo = e and e.loadouts and e.loadouts[1]
+        if lo then
+            ns.Apply.ApplyLoadout(lo.text, UI.RefreshList)
+        else
             UI.RefreshList()
         end
     end)

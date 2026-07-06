@@ -170,7 +170,7 @@ eventFrame:HookScript("OnEvent", function(_, event, ...)
         local ok, err = pcall(ns.initFns[i])
         if not ok then ns.Warn("init error: " .. tostring(err)) end
     end
-    ns.SafePrint(L["loaded. Open the talent tree to manage loadouts. /rt for help."])
+    ns.SafePrint(L["loaded. Open the talent tree to manage loadouts. /rtl for help."])
 end)
 
 -------------------------------------------------------------------------------
@@ -196,7 +196,8 @@ StaticPopupDialogs["REMINDTALENTS_TLX_MIGRATE"] = {
     timeout = 0, whileDead = true, hideOnEscape = true,
 }
 
-SLASH_REMINDTALENTS1 = "/rt"
+-- /rt é usado pelo Method Raid Tools; usamos /rtl para não conflitar.
+SLASH_REMINDTALENTS1 = "/rtl"
 SLASH_REMINDTALENTS2 = "/remindtalents"
 SlashCmdList["REMINDTALENTS"] = function(msg)
     msg = (msg or ""):gsub("^%s+", ""):gsub("%s+$", ""):lower()
@@ -228,10 +229,10 @@ SlashCmdList["REMINDTALENTS"] = function(msg)
             ToggleTalentFrame()
         end
         if msg == "" then
-            ns.SafePrint(L["commands: /rt (talents), /rt save (save current), /rt migrate (import from TalentLoadoutsEx)."])
+            ns.SafePrint(L["commands: /rtl (talents), /rtl save (save current), /rtl migrate (import from TalentLoadoutsEx)."])
         end
         return
     else
-        ns.SafePrint(L["commands: /rt (talents), /rt save (save current), /rt migrate (import from TalentLoadoutsEx)."])
+        ns.SafePrint(L["commands: /rtl (talents), /rtl save (save current), /rtl migrate (import from TalentLoadoutsEx)."])
     end
 end

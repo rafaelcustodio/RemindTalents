@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.2.0
+- New fixed "Others" section at the end of the catalog: a free bucket to store loadouts not tied to a dungeon/boss.
+- Double-click to apply: double-click a loadout to apply it, or double-click a catalog group to apply its first loadout.
+- Fixed the world-boss group (e.g. "Midnight") wrongly showing as a raid (`shouldDisplayDifficulty` was read from the wrong return position).
+- Slash command changed from `/rt` to `/rtl` to avoid the conflict with Method Raid Tools (`/remindtalents` still works).
+- Custom addon icon.
+- Guard against a taint error when `UnitName()` of a non-player unit returns a secret value (WoW 12.0+).
+
 ## 1.1.0
 - On-screen reminder icons now glow (pulsing proc-style highlight) when they appear, making the "wrong build" alert easier to notice.
 

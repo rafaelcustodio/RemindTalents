@@ -135,9 +135,12 @@ function Zones.GetSeasonRaids()
 
     local i = 1
     while true do
-        -- shouldDisplayDifficulty (10º retorno) é false para "World Bosses" e
-        -- afins; raids de verdade têm dificuldades. Filtra os world bosses.
-        local instanceID, name, _, _, _, _, _, _, shouldDisplayDifficulty = EJ_GetInstanceByIndex(i, true)
+        -- shouldDisplayDifficulty é o 10º retorno: false para o grupo de world
+        -- bosses (que o journal lista como uma "raid" com o nome da expansão,
+        -- ex.: "Midnight") e true para raids de verdade. ATENÇÃO à contagem de
+        -- underscores: são 7 (posições 3-9) antes do 10º valor.
+        local instanceID, name, _, _, _, _, _, _, _, shouldDisplayDifficulty =
+            EJ_GetInstanceByIndex(i, true)
         if not instanceID then break end
         if shouldDisplayDifficulty == false then
             i = i + 1
