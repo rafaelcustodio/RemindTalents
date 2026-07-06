@@ -395,6 +395,10 @@ local function OpenLoadoutMenu(anchor, lo)
                 rs:CreateButton(b.name, function() DoMove(lo, b) end)
             end
         end
+        -- Bucket livre "Others".
+        move:CreateButton(L["Others"], function()
+            DoMove(lo, { kind = "other", name = L["My loadouts"] })
+        end)
 
         root:CreateDivider()
         root:CreateButton(L["Delete"], function()

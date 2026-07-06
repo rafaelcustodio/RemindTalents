@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.2.1
+- The "Move to..." right-click menu now includes the "Others" section as a target.
+
 ## 1.2.0
 - New fixed "Others" section at the end of the catalog: a free bucket to store loadouts not tied to a dungeon/boss.
 - Double-click to apply: double-click a loadout to apply it, or double-click a catalog group to apply its first loadout.
