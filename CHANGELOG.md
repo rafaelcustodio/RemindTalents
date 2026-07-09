@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.2.2
+- Boss reminders are now disabled inside raids. In WoW 12.0 (Midnight) there is no reliable way to tell which boss you are about to pull: the target's name and GUID are "secret" (even out of combat), the player map position is unavailable, and the whole raid shares a single map. Dungeon reminders (matched by map) are unaffected.
+
 ## 1.2.1
 - The "Move to..." right-click menu now includes the "Others" section as a target.
 

@@ -199,29 +199,25 @@ local function Collect(out)
     if applying then return end
     if InMythicPlusKey() or InCombat() or not ns.Zones.IsInstancedContent() then return end
 
+    -- Em raids o lembrete fica desabilitado: no 12.0+ não há como identificar o
+    -- boss de forma confiável (UnitName/UnitGUID do alvo são "secret" mesmo fora
+    -- de combate, GetPlayerMapPosition é nil e o mapa da raid é único). O
+    -- lembrete de masmorra (por mapa/zona) continua funcionando normalmente.
+    local _, iType = GetInstanceInfo()
+    if iType == "raid" then return end
+
     local specIcon = ns.GetSpecIcon()
     local seen = {}
 
-    -- Considera a entrada de um slot (com vários loadouts). Para bosses, filtra
-    -- pela dificuldade atual da raid (loadout "all"/nil vale para todas). Se o
-    -- build ativo já corresponde a ALGUM loadout aplicável, nada a lembrar.
-    -- Senão, mostra um ícone por loadout aplicável (clique aplica).
+    -- Considera a entrada de um slot (com vários loadouts). Se o build ativo já
+    -- corresponde a ALGUM loadout, nada a lembrar. Senão, mostra um ícone por
+    -- loadout (clique aplica).
     local function considerEntry(e)
         if not e or not e.loadouts or #e.loadouts == 0 then return end
 
-        local isBoss = e.slot and e.slot.kind == "boss"
-        local raidDiff = isBoss and ns.Zones.GetRaidDifficulty() or nil
-        local function applies(lo)
-            if not isBoss then return true end
-            local d = lo.difficulty
-            if not d or d == "all" then return true end
-            if not raidDiff then return true end  -- dificuldade desconhecida → não filtra
-            return d == raidDiff
-        end
-
         local list = {}
         for _, lo in ipairs(e.loadouts) do
-            if lo.text and applies(lo) then list[#list + 1] = lo end
+            if lo.text then list[#list + 1] = lo end
         end
         if #list == 0 then return end
 
@@ -245,14 +241,6 @@ local function Collect(out)
     local zone = ns.Zones.GetCurrent()
     if zone and zone.name then
         considerEntry(ns.Storage.FindForZone(zone))
-    end
-
-    -- Boss: quando o jogador mira o boss (fora de combate — já garantido acima)
-    if UnitExists("target") and not UnitIsDeadOrGhost("target") then
-        local tname = UnitName("target")
-        if tname then
-            considerEntry(ns.Storage.FindForBoss(tname))
-        end
     end
 end
 
@@ -324,7 +312,6 @@ ns.RegisterInit(function()
         "TRAIT_CONFIG_UPDATED", "TRAIT_CONFIG_LIST_UPDATED",
         "PLAYER_TALENT_UPDATE", "PLAYER_SPECIALIZATION_CHANGED",
         "SPELLS_CHANGED", "PLAYER_DEAD", "PLAYER_ALIVE",
-        "PLAYER_TARGET_CHANGED",
     }
     for _, ev in ipairs(events) do
         ns.On(ev, function(event)
